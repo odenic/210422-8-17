@@ -1,10 +1,28 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <Header/>
+    <router-view/>
+    <Footer v-if="!$route.meta.isHideFooter"/>
   </div>
-  <router-view/>
+  
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import Header from './components/Header/index.vue'
+import Footer from './components/Footer/index.vue'
+
+export default defineComponent({
+  components:{
+    Header,
+    Footer
+  }
+  // setup() {
+    
+  // },
+})
+</script>
+
 
 <style lang="less">
 #app {
