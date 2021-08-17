@@ -27,9 +27,9 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <a class="logo" title="尚品汇" href="###" target="_blank">
+        <router-link to="/" class="logo">
           <img src="./logo.png" alt="" />
-        </a>
+        </router-link>
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
@@ -38,7 +38,11 @@
             id="autocomplete"
             class="input-error input-xxlarge"
           />
-          <button class="sui-btn btn-xlarge btn-danger" type="button">
+          <button
+            @click.prevent="search"
+            class="sui-btn btn-xlarge btn-danger"
+            type="button"
+          >
             搜索
           </button>
         </form>
@@ -52,6 +56,13 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Header",
+  methods: {
+    search(): void {
+      this.$router.push({
+        path: "/search",
+      });
+    },
+  },
   // setup() {
 
   // },
