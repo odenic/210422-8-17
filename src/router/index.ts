@@ -7,12 +7,12 @@ import Search from '../views/Search/index.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    // name: 'Home',
+    name: 'Home',
     component: Home
   },
   {
     path: '/login',
-    // name: 'Login',
+    name: 'Login',
     component: Login,
     meta:{
       isHideFooter:true
@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/register',
-    // name: 'Register',
+    name: 'Register',
     component: Register,
     meta:{
       isHideFooter:true
@@ -28,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/search',
-    // name: 'Search',
+    name: 'Search',
     component: Search
   },
   

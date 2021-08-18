@@ -14,10 +14,16 @@
         <a href="###">秒杀</a>
       </nav>
       <div class="sort">
-        <div class="all-sort-list2">
+        <div class="all-sort-list2" @click="toSearch">
           <div class="item" v-for="item in CategoryList" :key="item.categoryId">
             <h3>
-              <a href="">{{ item.categoryName }}</a>
+              <a
+                href=""
+                :data-name="item.categoryName"
+                :data-id="item.categoryId"
+                :data-level="1"
+                >{{ item.categoryName }}</a
+              >
             </h3>
             <div class="item-list clearfix">
               <div class="subitem">
@@ -27,12 +33,21 @@
                   :key="item2.categoryId"
                 >
                   <dt>
-                    <a href="">{{ item2.categoryName }}</a>
+                    <a
+                      href=""
+                      :data-name="item2.categoryName"
+                      :data-id="item2.categoryId"
+                      :data-level="2"
+                      >{{ item2.categoryName }}</a
+                    >
                   </dt>
                   <dd>
                     <em
                       v-for="item3 in item2.categoryChild"
                       :key="item3.categoryId"
+                      :data-name="item3.categoryName"
+                      :data-id="item3.categoryId"
+                      :data-level="3"
                     >
                       {{ item3.categoryName }}
                     </em>
@@ -48,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, VueElement } from "vue";
 import { mapState, mapActions } from "vuex";
 
 export default defineComponent({
@@ -61,6 +76,18 @@ export default defineComponent({
   },
   methods: {
     ...mapActions("home", ["getList"]),
+    toSearch(e: Event): void {
+      const tar = e.target as VueElement;
+      const { id, name, level } = tar.dataset;
+      if (!id) return;
+      this.$router.push({
+        name: "Search",
+        query: {
+          categoryName: name,
+          [`category${level}Id`]: id,
+        },
+      });
+    },
   },
 
   // setup() {

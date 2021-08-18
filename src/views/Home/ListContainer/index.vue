@@ -5,39 +5,8 @@
         <!--banner轮播-->
         <div class="swiper-container" id="mySwiper">
           <div class="swiper-wrapper">
-            <Swiper
-              :slides-per-view="1"
-              :navigation="{
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-              }"
-              :pagination="{ clickable: true }"
-              :autoplay="{
-                delay: 2500,
-                disableOnInteraction: false,
-              }"
-              :loop="true"
-            >
-              <SwiperSlide>
-                <img src="./images/banner1.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="./images/banner2.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="./images/banner3.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="./images/banner4.jpg" />
-              </SwiperSlide>
-            </Swiper>
+            <Carousel  :imgs="Banners"/>
           </div>
-          <!-- 如果需要分页器 -->
-          <!-- <div class="swiper-pagination"></div> -->
-
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
         </div>
       </div>
       <div class="right">
@@ -115,25 +84,19 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import SwiperCore, {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Autoplay,
-} from "swiper";
-import { Swiper, SwiperSlide} from "swiper/vue";
-import "swiper/swiper-bundle.css";
-
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
+import { mapState, mapActions } from "vuex";
 
 export default defineComponent({
   name: "ListContainer",
-  components: {
-    Swiper,
-    SwiperSlide,
+  mounted() {
+    this.getBanners();
   },
-
+  computed: {
+    ...mapState("home", ["Banners"]),
+  },
+  methods: {
+    ...mapActions("home", ["getBanners"]),
+  },
   // setup() {},
 });
 </script>

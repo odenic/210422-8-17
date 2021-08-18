@@ -117,6 +117,8 @@ export default defineComponent({
       float: left;
 
       .logo {
+        width: 175px;
+        display: block;
         img {
           width: 175px;
           margin: 25px 45px;
