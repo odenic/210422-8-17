@@ -1,11 +1,11 @@
 interface BaseCategoryList {
-  BaseCategoryList?: BCList[] | []
+  CategoryList?: Array<BCList>;
 }
 
 interface BCList {
-  categoryChild?:BCList[],
-  categoryId:number,
-  categoryName:string
+  categoryChild?: Array<BCList>;
+  categoryId?: number;
+  categoryName?: string;
 }
 
 export { BaseCategoryList };

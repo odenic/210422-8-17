@@ -1,8 +1,9 @@
-import axios from "axios";
+import request from '@/utils/request'
 
-function getBaseCategoryList() {
-  return axios({
-    url:'http://39.98.123.211/api/product/getBaseCategoryList',
+
+function getBaseCategoryList(){
+  return request({
+    url:'/product/getBaseCategoryList',
     method:'get',
   })
 }

@@ -15,11 +15,7 @@
       </nav>
       <div class="sort">
         <div class="all-sort-list2">
-          <div
-            class="item"
-            v-for="item in BaseCategoryList"
-            :key="item.categoryId"
-          >
+          <div class="item" v-for="item in CategoryList" :key="item.categoryId">
             <h3>
               <a href="">{{ item.categoryName }}</a>
             </h3>
@@ -53,27 +49,20 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { getBaseCategoryList } from "@/api/Home";
-import { BaseCategoryList } from "@/types/index";
+import { mapState, mapActions } from "vuex";
 
 export default defineComponent({
   name: "TypeNav",
-  data(): BaseCategoryList {
-    return {
-      BaseCategoryList: [],
-    };
+  mounted() {
+    this.getList();
+  },
+  computed: {
+    ...mapState("home", ["CategoryList"]),
+  },
+  methods: {
+    ...mapActions("home", ["getList"]),
   },
 
-  async mounted() {
-    const res = await getBaseCategoryList();
-    this.BaseCategoryList = res.data.data;
-    this.BaseCategoryList?.splice(14)
-  },
-  // methods:{
-  //   look(){
-  //     console.log(this.BaseCategoryList![0]!.categoryName);
-  //   }
-  // }
   // setup() {
 
   // },
@@ -114,7 +103,7 @@ export default defineComponent({
     .sort {
       position: absolute;
       left: 0;
-      top: 45px;
+      top: 50px;
       width: 210px;
       height: 461px;
       position: absolute;
