@@ -8,8 +8,8 @@
           <p>尚品汇欢迎您！</p>
           <p>
             <span>请</span>
-            <a href="###">登录</a>
-            <a href="###" class="register">免费注册</a>
+            <router-link to="/login">登录</router-link>
+            <router-link to="/register" class="register">免费注册</router-link>
           </p>
         </div>
         <div class="typeList">
@@ -37,6 +37,7 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
+            v-model="keywords"
           />
           <button
             @click.prevent="search"
@@ -58,10 +59,20 @@ export default defineComponent({
   name: "Header",
   methods: {
     search(): void {
+      if (!this.keywords) return;
       this.$router.push({
         path: "/search",
+        query: {
+          keyword: this.keywords,
+        },
       });
+      this.keywords = "";
     },
+  },
+  data() {
+    return {
+      keywords: "",
+    };
   },
   // setup() {
 
