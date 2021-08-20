@@ -1,12 +1,12 @@
-interface Homedata {
-  CategoryList: Array<BCList>;
+interface homeData {
+  CategoryList: Array<bcList>;
   Banners: Array<banner>;
   FloorLists: floor;
   likes: Array<likes>;
 }
 
-interface BCList {
-  categoryChild?: Array<BCList>;
+interface bcList {
+  categoryChild?: Array<bcList>;
   categoryId?: number;
   categoryName?: string;
 }
@@ -49,5 +49,4 @@ interface attrsList {
   attrValueList: Array<string>;
 }
 
-
-export { Homedata, likes, floor, banner, BCList, searchData, attrsList };
+export { homeData, likes, floor, banner, bcList, searchData, attrsList };
