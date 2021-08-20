@@ -59,7 +59,7 @@ export default defineComponent({
   name: "Header",
   methods: {
     search(): void {
-      if (!this.keywords) return;
+      // if (!this.keywords) return;
       this.$router.push({
         path: "/search",
         query: {

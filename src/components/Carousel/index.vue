@@ -9,6 +9,7 @@
     :autoplay="{
       delay: 2500,
       disableOnInteraction: false,
+      pauseOnMouseEnter: true,
     }"
     :loop="true"
     v-if="imgs.length"

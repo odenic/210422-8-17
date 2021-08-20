@@ -15,11 +15,12 @@ function getBanner() {
   });
 }
 
-function getSmallBanner() {
+
+function getFloorList(){
   return request_test({
-    url: "/smallBanners",
+    url: "/floors",
     method: "get",
   });
 }
 
-export { getBaseCategoryList, getBanner, getSmallBanner };
+export { getBaseCategoryList, getBanner,getFloorList };

@@ -4,13 +4,13 @@
   <TodayRecommend />
   <Rank />
   <Like />
-  <Floor />
-  <Floor />
+  <Floor v-for="(item, index) in FloorLists" :key="index" :floors="item" />
   <Brand />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapState, mapActions } from "vuex";
 import TypeNav from "./TypeNav/index.vue";
 import ListContainer from "./ListContainer/index.vue";
 import TodayRecommend from "./TodayRecommend/TodayRecommend.vue";
@@ -30,6 +30,16 @@ export default defineComponent({
     Floor,
     Brand,
   },
+  mounted() {
+    this.getFloorLists();
+  },
+  computed: {
+    ...mapState("home", ["FloorLists"]),
+  },
+  methods: {
+    ...mapActions("home", ["getFloorLists"]),
+  },
+
   // setup() {
 
   // },

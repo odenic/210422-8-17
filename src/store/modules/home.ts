@@ -1,10 +1,10 @@
-import { getBaseCategoryList, getBanner, getSmallBanner } from "@/api/home";
-import { BaseCategoryList } from "@/types/index";
+import { getBaseCategoryList, getBanner, getFloorList } from "@/api/home";
+import { Homedata } from "@/types/index";
 
-const state: BaseCategoryList = {
+const state: Homedata = {
   CategoryList: [],
   Banners: [],
-  smallBanners: [],
+  FloorLists: {},
 };
 
 const actions = {
@@ -24,10 +24,11 @@ const actions = {
       console.log(error);
     }
   },
-  async getSmallBanners({ commit }: any): Promise<void> {
+
+  async getFloorLists({ commit }: any): Promise<void> {
     try {
-      const smallBanner = await getSmallBanner();
-      commit("GET_SMALL_BANNERS", smallBanner);
+      const FloorList = await getFloorList();
+      commit("GET_FLOORLIST", FloorList);
     } catch (error) {
       console.log(error);
     }
@@ -35,15 +36,16 @@ const actions = {
 };
 
 const mutations = {
-  GET_CATEGORY_LIST(state: BaseCategoryList, goryList: any): void {
+  GET_CATEGORY_LIST(state: Homedata, goryList: any): void {
     state.CategoryList = goryList;
     state.CategoryList!.splice(14);
   },
-  GET_BANNERS(state: BaseCategoryList, banner: any): void {
+  GET_BANNERS(state: Homedata, banner: any): void {
     state.Banners = banner;
   },
-  GET_SMALL_BANNERS(state: BaseCategoryList, smallBanner: any): void {
-    state.smallBanners = smallBanner;
+
+  GET_FLOORLIST(state: Homedata, FloorList: any): void {
+    state.FloorLists = FloorList;
   },
 };
 

@@ -1,7 +1,7 @@
-interface BaseCategoryList {
+interface Homedata {
   CategoryList: Array<BCList>;
   Banners: Array<banner>;
-  smallBanners: Array<banner>;
+  FloorLists: floor;
 }
 
 interface BCList {
@@ -11,8 +11,17 @@ interface BCList {
 }
 
 interface banner {
-  id: number;
-  imgUrl: string;
+  id?: number;
+  imgUrl?: string | Array<string>;
 }
 
-export { BaseCategoryList };
+interface floor extends banner {
+  title?: string;
+  navList?: Array<string>;
+  jdList?: Array<string>;
+  smallImg?: string;
+  bigImg?: string;
+  banner?: banner;
+}
+
+export { Homedata };
