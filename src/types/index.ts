@@ -1,3 +1,4 @@
+
 interface Homedata {
   CategoryList: Array<BCList>;
   Banners: Array<banner>;
@@ -30,4 +31,5 @@ interface likes extends banner {
   price?: number;
 }
 
-export { Homedata };
+
+export { Homedata, likes, floor, banner, BCList };

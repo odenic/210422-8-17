@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/search',
+    path: '/search/:keyword?',
     name: 'Search',
     component: Search
   },

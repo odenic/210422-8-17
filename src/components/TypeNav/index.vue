@@ -1,9 +1,9 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
-    <div class="container">
-      <h2 class="all">全部商品分类</h2>
-      <nav class="nav">
+    <div class="container" @mouseleave="isShow = false">
+      <h2 class="all" @mouseenter="isShow = true">全部商品分类</h2>
+      <nav class="nav" @mouseenter="isShow = false">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
         <a href="###">尚品汇超市</a>
@@ -13,16 +13,89 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
+      <div class="sort" v-show="$route.path === '/' || isShow">
+        <div class="all-sort-list2" @click="toSearch">
+          <div class="item" v-for="item in CategoryList" :key="item.categoryId">
+            <h3>
+              <a
+                href=""
+                :data-name="item.categoryName"
+                :data-id="item.categoryId"
+                :data-level="1"
+                >{{ item.categoryName }}</a
+              >
+            </h3>
+            <div class="item-list clearfix">
+              <div class="subitem">
+                <dl
+                  class="fore"
+                  v-for="item2 in item.categoryChild"
+                  :key="item2.categoryId"
+                >
+                  <dt>
+                    <a
+                      href=""
+                      :data-name="item2.categoryName"
+                      :data-id="item2.categoryId"
+                      :data-level="2"
+                      >{{ item2.categoryName }}</a
+                    >
+                  </dt>
+                  <dd>
+                    <em
+                      v-for="item3 in item2.categoryChild"
+                      :key="item3.categoryId"
+                      :data-name="item3.categoryName"
+                      :data-id="item3.categoryId"
+                      :data-level="3"
+                    >
+                      {{ item3.categoryName }}
+                    </em>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, VueElement } from "vue";
+import { mapState, mapActions } from "vuex";
 
 export default defineComponent({
-  name: "TypeNav2",
-  
+  name: "TypeNav",
+  data() {
+    return {
+      isShow: false,
+    };
+  },
+  mounted() {
+    this.getList();
+  },
+  computed: {
+    ...mapState("home", ["CategoryList"]),
+  },
+  methods: {
+    ...mapActions("home", ["getList"]),
+    toSearch(e: Event): void {
+      const tar = e.target as VueElement;
+      const { id, name, level } = tar.dataset;
+      if (!id) return;
+      let data = {
+        name: "Search",
+        query: {
+          categoryName: name,
+          [`category${level}Id`]: id,
+        },
+        params:this.$route.params
+      }
+      this.$router.push(data);
+    },
+  },
 
   // setup() {
 
@@ -58,13 +131,14 @@ export default defineComponent({
         line-height: 45px;
         font-size: 16px;
         color: #333;
+        text-decoration: none;
       }
     }
 
     .sort {
       position: absolute;
       left: 0;
-      top: 50px;
+      top: 45px;
       width: 210px;
       height: 461px;
       position: absolute;
@@ -73,16 +147,20 @@ export default defineComponent({
 
       .all-sort-list2 {
         .item {
+          transition: 1s;
           h3 {
             line-height: 30px;
             font-size: 14px;
             font-weight: 400;
             overflow: hidden;
-            padding: 0 20px;
+            // padding: 0 20px;
             margin: 0;
 
             a {
+              display: block;
+              padding: 0 20px;
               color: #333;
+              text-decoration: none;
             }
           }
 
@@ -142,6 +220,7 @@ export default defineComponent({
           }
 
           &:hover {
+            background-color: skyblue;
             .item-list {
               display: block;
             }
@@ -152,3 +231,4 @@ export default defineComponent({
   }
 }
 </style>
+

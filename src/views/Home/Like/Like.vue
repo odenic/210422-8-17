@@ -1,17 +1,19 @@
 <template>
-  <div class="like" v-if="likes.length">
+  <div class="like">
     <div class="py-container">
       <div class="title">
         <h3 class="fl">猜你喜欢</h3>
-        <a href="javascript:;" class="fr tip changeBnt" @click="change">换一换</a>
+        <a href="javascript:;" class="fr tip changeBnt" @click="change"
+          >换一换</a
+        >
       </div>
       <div class="bd">
         <ul class="favourate">
           <li v-for="item in likes" :key="item.id">
             <img :src="item.imgUrl" alt="" />
             <div class="like-text">
-              <p>{{item.name}}</p>
-              <h3>¥{{item.price}}.00</h3>
+              <p>{{ item.name }}</p>
+              <h3>¥{{ item.price }}.00</h3>
             </div>
           </li>
         </ul>
@@ -24,24 +26,23 @@
 import { defineComponent } from "vue";
 import { mapState, mapActions } from "vuex";
 
-
 export default defineComponent({
   name: "Like",
   // setup() {
 
   // },
-  methods:{
-    ...mapActions("home",["getLikes"]),
-    change(){
-      this.getLikes()
-    }
+  methods: {
+    ...mapActions("home", ["getLikes"]),
+    change() {
+      this.getLikes();
+    },
   },
-  computed:{
-    ...mapState("home",["likes"])
+  computed: {
+    ...mapState("home", ["likes"]),
   },
-  mounted(){
-    this.getLikes()
-  }
+  mounted() {
+    this.getLikes();
+  },
 });
 </script>
 
@@ -95,7 +96,7 @@ export default defineComponent({
           flex-direction: column;
           align-items: center;
           cursor: pointer;
-
+          padding-top: 20px;
           img {
             width: 142px;
             height: 142px;
@@ -110,7 +111,7 @@ export default defineComponent({
           .like-text {
             padding: 0;
             width: 142px;
-            border-right: 1px solid #e4e4e4;
+            // border-right: 1px solid #e4e4e4;
 
             p {
               margin: 5px 0;

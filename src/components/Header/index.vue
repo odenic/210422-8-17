@@ -60,12 +60,14 @@ export default defineComponent({
   methods: {
     search(): void {
       // if (!this.keywords) return;
-      this.$router.push({
-        path: "/search",
-        query: {
+      let data = {
+        name: "Search",
+        params: {
           keyword: this.keywords,
         },
-      });
+        query:this.$route.query
+      }
+      this.$router.push(data);
       this.keywords = "";
     },
   },

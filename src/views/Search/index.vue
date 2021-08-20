@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TypeNav2 />
+    <TypeNav />
     <div class="main">
       <div class="py-container">
         <!--bread-->

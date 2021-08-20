@@ -11,7 +11,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapState, mapActions } from "vuex";
-import TypeNav from "./TypeNav/index.vue";
 import ListContainer from "./ListContainer/index.vue";
 import TodayRecommend from "./TodayRecommend/TodayRecommend.vue";
 import Rank from "./Rank/Rank.vue";
@@ -22,7 +21,6 @@ import Brand from "./Brand/Brand.vue";
 export default defineComponent({
   name: "Home",
   components: {
-    TypeNav,
     ListContainer,
     TodayRecommend,
     Rank,
