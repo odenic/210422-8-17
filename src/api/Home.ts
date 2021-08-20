@@ -15,12 +15,18 @@ function getBanner() {
   });
 }
 
-
-function getFloorList(){
+function getFloorList() {
   return request_test({
     url: "/floors",
     method: "get",
   });
 }
 
-export { getBaseCategoryList, getBanner,getFloorList };
+function getLike() {
+  return request_test({
+    url: "/likes",
+    method: "get",
+  });
+}
+
+export { getBaseCategoryList, getBanner, getFloorList, getLike };

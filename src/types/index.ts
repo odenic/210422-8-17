@@ -2,6 +2,7 @@ interface Homedata {
   CategoryList: Array<BCList>;
   Banners: Array<banner>;
   FloorLists: floor;
+  likes: Array<likes>;
 }
 
 interface BCList {
@@ -22,6 +23,11 @@ interface floor extends banner {
   smallImg?: string;
   bigImg?: string;
   banner?: banner;
+}
+
+interface likes extends banner {
+  name?: string;
+  price?: number;
 }
 
 export { Homedata };

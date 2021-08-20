@@ -1,10 +1,16 @@
-import { getBaseCategoryList, getBanner, getFloorList } from "@/api/home";
+import {
+  getBaseCategoryList,
+  getBanner,
+  getFloorList,
+  getLike,
+} from "@/api/home";
 import { Homedata } from "@/types/index";
 
 const state: Homedata = {
   CategoryList: [],
   Banners: [],
   FloorLists: {},
+  likes: [],
 };
 
 const actions = {
@@ -33,6 +39,14 @@ const actions = {
       console.log(error);
     }
   },
+  async getLikes({ commit }: any): Promise<void> {
+    try {
+      const like = await getLike();
+      commit("GET_LIKE", like);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 const mutations = {
@@ -43,9 +57,11 @@ const mutations = {
   GET_BANNERS(state: Homedata, banner: any): void {
     state.Banners = banner;
   },
-
   GET_FLOORLIST(state: Homedata, FloorList: any): void {
     state.FloorLists = FloorList;
+  },
+  GET_LIKE(state: Homedata, like: any): void {
+    state.likes = like;
   },
 };
 
