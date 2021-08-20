@@ -1,4 +1,3 @@
-
 interface Homedata {
   CategoryList: Array<BCList>;
   Banners: Array<banner>;
@@ -31,5 +30,24 @@ interface likes extends banner {
   price?: number;
 }
 
+interface searchData {
+  category1Id?: string;
+  category2Id?: string;
+  category3Id?: string;
+  categoryName?: string;
+  keyword?: string;
+  props?: Array<string>;
+  trademark?: string;
+  order?: string;
+  pageNo?: number;
+  pageSize?: number;
+}
 
-export { Homedata, likes, floor, banner, BCList };
+interface attrsList {
+  attrId: number;
+  attrName: string;
+  attrValueList: Array<string>;
+}
+
+
+export { Homedata, likes, floor, banner, BCList, searchData, attrsList };
