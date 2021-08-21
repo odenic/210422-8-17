@@ -144,7 +144,15 @@
               </li>
             </ul>
           </div>
-          <Pagination />
+          <Pagination
+            v-if="res.pageNo"
+            :pageNo="res.pageNo"
+            :pageSize="res.pageSize"
+            :total="res.total"
+            :totalPages="res.totalPages"
+            :changePage="changePage"
+            :changePerPage="changePerPage"
+          />
         </div>
       </div>
     </div>
@@ -155,7 +163,7 @@
 import { defineComponent } from "vue";
 import SearchSelector from "./SearchSelector/SearchSelector.vue";
 import { search } from "@/api/search";
-import { searchData } from "@/types/index";
+import { searchData, resOfSearch } from "@/types/index";
 import Pagination from "@/components/Pagination/index.vue";
 export default defineComponent({
   name: "Search",
@@ -172,7 +180,7 @@ export default defineComponent({
         keyword: (this.$route.params.keyword as string) || "",
         props: [],
         trademark: "",
-        order: "2:desc",
+        order: "1:desc",
         pageNo: 1,
         pageSize: 5,
       },
@@ -188,7 +196,7 @@ export default defineComponent({
   methods: {
     async reqSearch(): Promise<void> {
       try {
-        const res = await search(this.option);
+        const res = (await search(this.option)) as resOfSearch;
         this.isShow = true;
         this.res = res;
       } catch (error) {
@@ -239,6 +247,18 @@ export default defineComponent({
         this.sortOrder = "desc";
       }
       this.option.order = `${a}:${this.sortOrder}`;
+    },
+    changePage(pageNumber: number): void {
+      if (
+        this.option.pageNo === pageNumber ||
+        pageNumber > this.option.pageSize ||
+        pageNumber < 1
+      )
+        return;
+      this.option.pageNo = pageNumber;
+    },
+    changePerPage(perPage: number): void {
+      this.option.pageSize = perPage;
     },
   },
   watch: {
