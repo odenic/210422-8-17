@@ -402,6 +402,7 @@ export default defineComponent({
             li {
               float: left;
               line-height: 18px;
+              
 
               a {
                 display: block;
@@ -409,6 +410,7 @@ export default defineComponent({
                 padding: 11px 15px;
                 color: #777;
                 text-decoration: none;
+                transition: 1s;
               }
 
               &.active {
