@@ -224,7 +224,7 @@ export default defineComponent({
         name: "Search",
         params: {
           keyword: this.option.keyword,
-          pageNo: 1,
+          // pageNo: 1,
         },
       });
     },
@@ -232,7 +232,10 @@ export default defineComponent({
       this.$route.params.keyword = "";
       this.$router.push({
         name: "Search",
-        query: { ...this.$route.query, pageNo: 1 },
+        query: {
+          ...this.$route.query,
+          //  pageNo: 1
+        },
       });
     },
     removeTrademark(): void {
@@ -402,7 +405,6 @@ export default defineComponent({
             li {
               float: left;
               line-height: 18px;
-              
 
               a {
                 display: block;

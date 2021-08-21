@@ -5,11 +5,11 @@
         <use xlink:href="#icon-zuo"></use>
       </svg>
     </button>
-    <ul class="pagination-pager">
+    <ul class="pagination-pager" @click="changePage(Number($event.target.textContent))">
       <li
         class="number"
         :class="1 === pageNo ? 'active' : ''"
-        @click="changePage(1)"
+        
       >
         1
       </li>
@@ -24,7 +24,7 @@
         v-for="(item, index) in pages.end - pages.start + 1"
         :key="index"
         :class="index + pages.start === pageNo ? 'active' : ''"
-        @click="changePage(index + pages.start)"
+        
       >
         {{ index + pages.start }}
       </li>
@@ -37,7 +37,7 @@
         class="number"
         :class="totalPages === pageNo ? 'active' : ''"
         v-show="totalPages > 1"
-        @click="changePage(totalPages)"
+        
       >
         {{ totalPages }}
       </li>
