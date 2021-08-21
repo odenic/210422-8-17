@@ -251,13 +251,14 @@ export default defineComponent({
     changePage(pageNumber: number): void {
       if (
         this.option.pageNo === pageNumber ||
-        pageNumber > this.option.pageSize ||
+        pageNumber > (this.res.totalPages as number) ||
         pageNumber < 1
       )
         return;
       this.option.pageNo = pageNumber;
     },
     changePerPage(perPage: number): void {
+      this.option.pageNo = 1;
       this.option.pageSize = perPage;
     },
   },
