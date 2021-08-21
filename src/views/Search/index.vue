@@ -205,11 +205,13 @@ export default defineComponent({
     },
     trademarkSearch(data: string): void {
       this.option.trademark = data ? data : "";
+      this.option.pageNo = 1;
     },
     propsSearch(data: string): void {
       if (this.option.props) {
         if (this.option.props.indexOf(data) === -1) {
           this.option.props.push(data);
+          this.option.pageNo = 1;
         }
       }
     },
@@ -222,6 +224,7 @@ export default defineComponent({
         name: "Search",
         params: {
           keyword: this.option.keyword,
+          pageNo: 1,
         },
       });
     },
@@ -229,14 +232,16 @@ export default defineComponent({
       this.$route.params.keyword = "";
       this.$router.push({
         name: "Search",
-        query: this.$route.query,
+        query: { ...this.$route.query, pageNo: 1 },
       });
     },
     removeTrademark(): void {
       this.option.trademark = "";
+      this.option.pageNo = 1;
     },
     removeProps(index: number): void {
       this.option.props?.splice(index, 1);
+      this.option.pageNo = 1;
     },
     setOrder(order: string): void {
       let [a, b] = this.option.order.split(":");

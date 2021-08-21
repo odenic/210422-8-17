@@ -36,7 +36,7 @@
       <li
         class="number"
         :class="totalPages === pageNo ? 'active' : ''"
-        v-show="totalPages !== 1"
+        v-show="totalPages > 1"
         @click="changePage(totalPages)"
       >
         {{ totalPages }}
