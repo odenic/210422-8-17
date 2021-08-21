@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 
 import './mock/index'
+import '@/assets/fonts/iconfont.js'
 
 import Carousel from '@/components/Carousel/index.vue'
 import TypeNav from '@/components/TypeNav/index.vue'

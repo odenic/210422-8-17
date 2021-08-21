@@ -30,7 +30,7 @@ interface likes extends banner {
   price?: number;
 }
 
-interface searchData {
+interface searchOption {
   category1Id?: string;
   category2Id?: string;
   category3Id?: string;
@@ -38,15 +38,35 @@ interface searchData {
   keyword?: string;
   props?: Array<string>;
   trademark?: string;
-  order?: string;
+  order: string;
+  pageNo: number;
+  pageSize: number;
+}
+
+interface resOfSearch {
+  attrsList?: Array<object>;
+  goodsList?: Array<object>;
   pageNo?: number;
   pageSize?: number;
+  total?: number;
+  totalPages?: number;
+  trademarkList?: Array<object>;
 }
 
-interface attrsList {
-  attrId: number;
-  attrName: string;
-  attrValueList: Array<string>;
+interface searchData {
+  sortOrder:string
+  isShow: boolean;
+  res: resOfSearch;
+  option: searchOption;
 }
 
-export { homeData, likes, floor, banner, bcList, searchData, attrsList };
+export {
+  homeData,
+  likes,
+  floor,
+  banner,
+  bcList,
+  searchData,
+  resOfSearch,
+  searchOption,
+};

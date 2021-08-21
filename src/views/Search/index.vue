@@ -11,25 +11,60 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li v-if="data.categoryName" class="with-x">
-              {{ data.categoryName }}
+            <li v-show="option.categoryName" class="with-x">
+              {{ option.categoryName }} <i @click="removeCategoryName">×</i>
             </li>
-            <li v-if="data.keyword" class="with-x">
-              {{ data.keyword }}<i>×</i>
+            <li v-show="option.keyword" class="with-x">
+              {{ option.keyword }}<i @click="removeKeyword">×</i>
+            </li>
+            <li v-show="option.trademark" class="with-x">
+              {{ option.trademark.split(":")[1]
+              }}<i @click="removeTrademark">×</i>
+            </li>
+            <li
+              v-for="(item, index) in option.props"
+              :key="index"
+              class="with-x"
+            >
+              {{ `${item.split(":")[2]}:${item.split(":")[1]}`
+              }}<i @click="removeProps(index)">×</i>
             </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector v-if="isShow" :list="res.attrsList" />
+        <SearchSelector
+          v-if="isShow"
+          :list="res"
+          :trademarkSearch="trademarkSearch"
+          :propsSearch="propsSearch"
+        />
 
         <!--details-->
         <div class="details clearfix">
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li
+                  @click="setOrder('1')"
+                  :class="getNumOfOrder === '1' ? 'active' : ''"
+                >
+                  <a
+                    >综合
+                    <svg
+                      class="icon"
+                      aria-hidden="true"
+                      v-show="getNumOfOrder === '1'"
+                    >
+                      <use
+                        :xlink:href="
+                          sortOrder === 'desc'
+                            ? '#icon-a-arrow-down1x'
+                            : '#icon-a-arrow-up1x'
+                        "
+                      ></use>
+                    </svg>
+                  </a>
                 </li>
                 <li>
                   <a href="#">销量</a>
@@ -40,11 +75,26 @@
                 <li>
                   <a href="#">评价</a>
                 </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li
+                  @click="setOrder('2')"
+                  :class="getNumOfOrder === '2' ? 'active' : ''"
+                >
+                  <a
+                    >价格
+                    <svg
+                      class="icon"
+                      aria-hidden="true"
+                      v-show="getNumOfOrder === '2'"
+                    >
+                      <use
+                        :xlink:href="
+                          sortOrder === 'desc'
+                            ? '#icon-a-arrow-down1x'
+                            : '#icon-a-arrow-up1x'
+                        "
+                      ></use>
+                    </svg>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -94,35 +144,7 @@
               </li>
             </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          <Pagination />
         </div>
       </div>
     </div>
@@ -133,13 +155,16 @@
 import { defineComponent } from "vue";
 import SearchSelector from "./SearchSelector/SearchSelector.vue";
 import { search } from "@/api/search";
+import { searchData } from "@/types/index";
+import Pagination from "@/components/Pagination/index.vue";
 export default defineComponent({
   name: "Search",
-  data() {
+  data(): searchData {
     return {
+      sortOrder: "desc",
       isShow: false,
       res: {},
-      data: {
+      option: {
         category1Id: (this.$route.query.category1Id as string) || "",
         category2Id: (this.$route.query.category2Id as string) || "",
         category3Id: (this.$route.query.category3Id as string) || "",
@@ -147,7 +172,7 @@ export default defineComponent({
         keyword: (this.$route.params.keyword as string) || "",
         props: [],
         trademark: "",
-        order: "",
+        order: "2:desc",
         pageNo: 1,
         pageSize: 5,
       },
@@ -158,22 +183,85 @@ export default defineComponent({
   },
   components: {
     SearchSelector,
+    Pagination,
   },
   methods: {
     async reqSearch(): Promise<void> {
       try {
-        const res = await search(this.data);
+        const res = await search(this.option);
         this.isShow = true;
         this.res = res;
       } catch (error) {
         console.log(error);
       }
     },
+    trademarkSearch(data: string): void {
+      this.option.trademark = data ? data : "";
+    },
+    propsSearch(data: string): void {
+      if (this.option.props) {
+        if (this.option.props.indexOf(data) === -1) {
+          this.option.props.push(data);
+        }
+      }
+    },
+    removeCategoryName(): void {
+      this.$route.query.categoryName = "";
+      this.$route.query.category1Id = "";
+      this.$route.query.category2Id = "";
+      this.$route.query.category3Id = "";
+      this.$router.push({
+        name: "Search",
+        params: {
+          keyword: this.option.keyword,
+        },
+      });
+    },
+    removeKeyword(): void {
+      this.$route.params.keyword = "";
+      this.$router.push({
+        name: "Search",
+        query: this.$route.query,
+      });
+    },
+    removeTrademark(): void {
+      this.option.trademark = "";
+    },
+    removeProps(index: number): void {
+      this.option.props?.splice(index, 1);
+    },
+    setOrder(order: string): void {
+      let [a, b] = this.option.order.split(":");
+      if (a === order) {
+        this.sortOrder = b === "desc" ? "asc" : "desc";
+      } else {
+        a = order;
+        this.sortOrder = "desc";
+      }
+      this.option.order = `${a}:${this.sortOrder}`;
+    },
   },
   watch: {
-    $route(n) {
-      this.data.keyword = n.params.keyword;
-      this.reqSearch();
+    $route: {
+      handler: function(n): void {
+        this.option.keyword = n.params.keyword;
+        this.option.category1Id = n.query.category1Id || "";
+        this.option.category2Id = n.query.category2Id || "";
+        this.option.category3Id = n.query.category3Id || "";
+        this.option.categoryName = n.query.categoryName;
+      },
+      deep: true,
+    },
+    option: {
+      handler: function(): void {
+        this.reqSearch();
+      },
+      deep: true,
+    },
+  },
+  computed: {
+    getNumOfOrder(): string {
+      return this.option.order.split(":")[0];
     },
   },
 });
@@ -182,6 +270,13 @@ export default defineComponent({
 <style lang="less" scoped>
 .main {
   margin: 10px 0;
+  .icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
 
   .py-container {
     width: 1200px;

@@ -1,7 +1,8 @@
 import request from "@/utils/request";
-import { searchData } from "@/types/index";
+import { searchOption ,resOfSearch} from "@/types/index";
+import { AxiosPromise } from "axios";
 
-function search(data: searchData): any {
+function search(data: searchOption): any {
   return request({
     url: "/list",
     method: "post",

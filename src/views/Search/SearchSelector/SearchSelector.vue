@@ -2,12 +2,12 @@
   <div class="clearfix selector">
     <div class="type-wrap logo">
       <div class="fl key brand">
-        {{ getBrand[0] ? getBrand[0].attrName : "" }}
+        品牌
       </div>
       <div class="value logos">
-        <ul class="logo-list" v-if="getBrand.length">
-          <li v-for="(item, index) in getBrand[0].attrValueList" :key="index">
-            {{ item }}
+        <ul class="logo-list">
+          <li v-for="(item, index) in list.trademarkList" :key="index" @click="trademarkSearch(`${item.tmId}:${item.tmName}`)">
+            {{ item.tmName }}
           </li>
         </ul>
       </div>
@@ -16,12 +16,12 @@
         <a href="javascript:void(0);">更多</a>
       </div>
     </div>
-    <div class="type-wrap" v-for="(item, index) in getParameter" :key="index">
+    <div class="type-wrap" v-for="(item, index) in list.attrsList" :key="index">
       <div class="fl key">{{ item.attrName }}</div>
       <div class="fl value">
         <ul class="type-list">
           <li v-for="(data, index) in item.attrValueList" :key="index">
-            <a>{{ data }}</a>
+            <a @click="propsSearch(`${item.attrId}:${data}:${item.attrName}`)">{{ data }}</a>
           </li>
         </ul>
       </div>
@@ -31,26 +31,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { attrsList } from "@/types/index";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "SearchSelector",
   props: {
-    list: {
-      type: Array as PropType<Array<attrsList>>,
+    list: Object,
+    trademarkSearch:{
+      type:Function
     },
-  },
-  computed: {
-    getParameter() {
-      return this.list
-        ? this.list.filter((item: attrsList) => item.attrName !== "手机品牌")
-        : [];
-    },
-    getBrand() {
-      return this.list
-        ? this.list.filter((item: attrsList) => item.attrName === "手机品牌")
-        : [];
+    propsSearch:{
+      type:Function
     },
   },
 });
