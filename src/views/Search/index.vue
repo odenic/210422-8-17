@@ -263,8 +263,10 @@ export default defineComponent({
       this.option.pageNo = pageNumber;
     },
     changePerPage(perPage: number): void {
-      this.option.pageNo = 1;
-      this.option.pageSize = perPage;
+      if (this.option.pageSize !== perPage) {
+        this.option.pageNo = 1;
+        this.option.pageSize = perPage;
+      }
     },
   },
   watch: {
