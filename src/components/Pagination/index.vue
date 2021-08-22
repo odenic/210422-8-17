@@ -3,10 +3,10 @@
     <button
       :class="{
         'pagination-btn': true,
-        disabled: pageNo === 1 ? true : false,
+        disabled: pageNo <= 1,
         number: true,
       }"
-      :disabled="pageNo === 1 ? true : false"
+      :disabled="pageNo <= 1"
       @click="changePage(pageNo - 1)"
     >
       <svg class="icon" aria-hidden="true">
@@ -20,7 +20,7 @@
       <li class="number" :class="1 === pageNo ? 'active' : ''">
         1
       </li>
-      <li class=" number">
+      <li class=" number" v-show="isShowPre">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-a-more-level1x"></use>
         </svg>
@@ -34,7 +34,7 @@
       >
         {{ index + pages.start }}
       </li>
-      <li class=" number">
+      <li class=" number" v-show="isShowNext">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-a-more-level1x"></use>
         </svg>
@@ -50,10 +50,10 @@
     <button
       :class="{
         'pagination-btn': true,
-        disabled: pageNo === totalPages ? true : false,
+        disabled: pageNo >= totalPages,
         number: true,
       }"
-      :disabled="pageNo === totalPages ? true : false"
+      :disabled="pageNo >= totalPages"
       @click="changePage(pageNo + 1)"
     >
       <svg class="icon" aria-hidden="true">
@@ -118,6 +118,24 @@ export default defineComponent({
       let end = start + 4;
       return { start, end };
     },
+    isShowPre(): boolean {
+      if ((this.totalPages as number) <= 7) {
+        return false;
+      }
+      if ((this.pageNo as number) <= 4) {
+        return false;
+      }
+      return true;
+    },
+    isShowNext(): boolean {
+      if ((this.totalPages as number) <= 7) {
+        return false;
+      }
+      if ((this.pageNo as number) >= (this.totalPages as number) - 3) {
+        return false;
+      }
+      return true;
+    },
   },
 });
 </script>
@@ -143,7 +161,6 @@ export default defineComponent({
   min-width: 30px;
   border-radius: 2px;
   cursor: pointer;
-  transition: 1s;
   &.active {
     background-color: #e1251b;
     color: #fff;
