@@ -60,6 +60,81 @@ interface searchData {
   option: searchOption;
 }
 
+interface detailRes {
+  categoryView?: categoryView;
+  price?: number;
+  skuInfo?: skuInfo;
+  spuSaleAttrList?: Array<spuSaleAttrList>;
+  skuAttrValueList?: string;
+}
+
+interface categoryView {
+  category1Id: number;
+  category1Name: string;
+  category2Id: number;
+  category2Name: string;
+  category3Id: number;
+  category3Name: string;
+  id: number;
+}
+
+interface skuInfo {
+  category3Id: number;
+  createTime: string;
+  id: number;
+  isSale: number;
+  price: number;
+  skuAttrValueList: Array<skuAttrValueList>;
+  skuDefaultImg: string;
+  skuDesc: string;
+  skuImageList: Array<skuImageList>;
+  skuName: string;
+  skuSaleAttrValueList: null;
+  spuId: number;
+  tmId: number;
+  weight: string;
+}
+
+interface skuAttrValueList {
+  attrId: number;
+  attrName: string;
+  id: number;
+  skuId: number;
+  valueId: number;
+  valueName: string;
+}
+
+interface skuImageList {
+  id: number;
+  imgName: string;
+  imgUrl: string;
+  isDefault: string;
+  skuId: number;
+  spuImgId: number;
+}
+
+interface spuSaleAttrList {
+  baseSaleAttrId: number;
+  id: number;
+  saleAttrName: string;
+  spuId: number;
+  spuSaleAttrValueList: Array<puSaleAttrValueList>;
+}
+
+interface puSaleAttrValueList {
+  baseSaleAttrId: number;
+  id: number;
+  isChecked: string;
+  saleAttrName: string;
+  saleAttrValueName: string;
+  spuId: number;
+}
+
+interface detailData {
+  res: detailRes;
+  zoomImg: string;
+}
+
 export {
   homeData,
   likes,
@@ -69,4 +144,7 @@ export {
   searchData,
   resOfSearch,
   searchOption,
+  detailData,
+  detailRes,
+  skuImageList,
 };
