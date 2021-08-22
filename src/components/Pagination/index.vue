@@ -1,6 +1,14 @@
 <template>
   <div class="pagination">
-    <button class="pagination-btn number" @click="changePage(pageNo - 1)">
+    <button
+      :class="{
+        'pagination-btn': true,
+        disabled: pageNo === 1 ? true : false,
+        number: true,
+      }"
+      :disabled="pageNo === 1 ? true : false"
+      @click="changePage(pageNo - 1)"
+    >
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-zuo"></use>
       </svg>
@@ -39,7 +47,15 @@
         {{ totalPages }}
       </li>
     </ul>
-    <button class="pagination-btn number" @click="changePage(pageNo + 1)">
+    <button
+      :class="{
+        'pagination-btn': true,
+        disabled: pageNo === totalPages ? true : false,
+        number: true,
+      }"
+      :disabled="pageNo === totalPages ? true : false"
+      @click="changePage(pageNo + 1)"
+    >
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-you"></use>
       </svg>
@@ -147,5 +163,9 @@ export default defineComponent({
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
+}
+.disabled {
+  cursor: not-allowed;
+  background-color: #dcdce9;
 }
 </style>

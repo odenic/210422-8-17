@@ -257,12 +257,7 @@ export default defineComponent({
       this.option.order = `${a}:${this.sortOrder}`;
     },
     changePage(pageNumber: number): void {
-      if (
-        this.option.pageNo === pageNumber ||
-        pageNumber > (this.res.totalPages as number) ||
-        pageNumber < 1
-      )
-        return;
+      if (pageNumber === 0) return;
       this.option.pageNo = pageNumber;
     },
     changePerPage(perPage: number): void {
@@ -519,6 +514,7 @@ export default defineComponent({
                 }
 
                 .btn-bordered {
+                  transition: 1s;
                   min-width: 85px;
                   background-color: transparent;
                   border: 1px solid #8c8c8c;
@@ -533,6 +529,7 @@ export default defineComponent({
                 }
 
                 .btn-danger {
+                  transition: 1s;
                   border: 1px solid #e1251b;
                   color: #e1251b;
 

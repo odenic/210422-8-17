@@ -54,7 +54,7 @@ interface resOfSearch {
 }
 
 interface searchData {
-  sortOrder:string
+  sortOrder: string;
   isShow: boolean;
   res: resOfSearch;
   option: searchOption;
