@@ -1,9 +1,9 @@
 <template>
   <div class="spec-preview">
-    <img :src="imgUrl" />
+    <img :src="imgUrl" class="small-img"/>
     <div class="event" @mousemove="magnifying($event)"></div>
     <div class="big">
-      <img :src="imgUrl" />
+      <img :src="imgUrl" class="big-img"/>
     </div>
     <div class="mask" ref="mask"></div>
   </div>
@@ -20,32 +20,31 @@ export default defineComponent({
   methods: {
     magnifying(e: MouseEvent): void {
       const mask = document.querySelector(".mask") as HTMLElement;
-      // const bigImg = document.querySelector(".big>img") as HTMLElement
-      const width = Number(window.getComputedStyle(mask).width.split("px")[0]);
-      const height = Number(
+      const bigImg = document.querySelector(".big-img") as HTMLElement;
+      const maskWidth = Number(
+        window.getComputedStyle(mask).width.split("px")[0]
+      );
+      const maskHeight = Number(
         window.getComputedStyle(mask).height.split("px")[0]
       );
-      // console.log(bigImg);
 
-      let left = e.offsetX - width / 2;
-      let top = e.offsetY - height / 2;
+      let left = e.offsetX - maskWidth / 2;
+      let top = e.offsetY - maskHeight / 2;
       if (left <= 0) {
         left = 0;
-      } else if (left >= width) {
-        left = width;
+      } else if (left >= maskWidth) {
+        left = maskWidth;
       }
       if (top < 0) {
         top = 0;
-      } else if (top >= height) {
-        top = height;
+      } else if (top >= maskHeight) {
+        top = maskHeight;
       }
       mask.style.left = left + "px";
       mask.style.top = top + "px";
 
-      // console.log(window.getComputedStyle(mask).width.split("px")[0]);
-
-      // bigImg.style.left = -(left*8) +"px"
-      // bigImg.style.top = -(top*8) +"px"
+      bigImg.style.left = -(left * 2) + "px";
+      bigImg.style.top = -(top * 2) + "px";
     },
   },
 });

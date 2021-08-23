@@ -7,10 +7,9 @@
     <section class="con">
       <!-- 导航路径区域 -->
       <div class="conPoin">
-        <span>手机、数码、通讯</span>
-        <span>手机</span>
-        <span>Apple苹果</span>
-        <span>iphone 6S系类</span>
+        <span>{{ res.categoryView.category1Name }}</span>
+        <span>{{ res.categoryView.category2Name }}</span>
+        <span>{{ res.categoryView.category3Name }}</span>
       </div>
       <!-- 主要内容区域 -->
       <div class="mainCon">
@@ -79,29 +78,16 @@
           <div class="choose">
             <div class="chooseArea">
               <div class="choosed"></div>
-              <dl>
-                <dt class="title">选择颜色</dt>
-                <dd changepirce="0" class="active">金色</dd>
-                <dd changepirce="40">银色</dd>
-                <dd changepirce="90">黑色</dd>
-              </dl>
-              <dl>
-                <dt class="title">内存容量</dt>
-                <dd changepirce="0" class="active">16G</dd>
-                <dd changepirce="300">64G</dd>
-                <dd changepirce="900">128G</dd>
-                <dd changepirce="1300">256G</dd>
-              </dl>
-              <dl>
-                <dt class="title">选择版本</dt>
-                <dd changepirce="0" class="active">公开版</dd>
-                <dd changepirce="-1000">移动版</dd>
-              </dl>
-              <dl>
-                <dt class="title">购买方式</dt>
-                <dd changepirce="0" class="active">官方标配</dd>
-                <dd changepirce="-240">优惠移动版</dd>
-                <dd changepirce="-390">电信优惠版</dd>
+              <dl v-for="(item, index) in res.spuSaleAttrList" :key="index">
+                <dt class="title">{{ item.saleAttrName }}</dt>
+                <dd
+                  changepirce="0"
+                  :class="attr.isChecked === '1' ? 'active' : ''"
+                  v-for="(attr, index) in item.spuSaleAttrValueList"
+                  :key="index"
+                >
+                  {{ attr.saleAttrValueName }}
+                </dd>
               </dl>
             </div>
             <div class="cartWrap">
