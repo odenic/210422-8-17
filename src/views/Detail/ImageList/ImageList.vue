@@ -12,7 +12,7 @@
           pauseOnMouseEnter: true,
         }"
         :loop="true"
-        :slidesPerView="5"
+        :slidesPerView="imgUrl.length<5?imgUrl.length:5"
       >
         <SwiperSlide v-for="item in imgUrl" :key="item.id" class="swiper-slide">
           <img :src="item.imgUrl" @click="changeZoomImg(item.imgUrl)" />
