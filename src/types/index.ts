@@ -1,36 +1,36 @@
-interface homeData {
-  CategoryList: Array<bcList>;
-  Banners: Array<banner>;
-  FloorLists: floor;
-  likes: Array<likes>;
+interface HomeData {
+  CategoryList: Array<BcList>;
+  Banners: Array<Banner>;
+  FloorLists: Floor;
+  likes: Array<Likes>;
 }
 
-interface bcList {
-  categoryChild?: Array<bcList>;
+interface BcList {
+  categoryChild?: Array<BcList>;
   categoryId?: number;
   categoryName?: string;
 }
 
-interface banner {
+interface Banner {
   id?: number;
   imgUrl?: string | Array<string>;
 }
 
-interface floor extends banner {
+interface Floor extends Banner {
   title?: string;
   navList?: Array<string>;
   jdList?: Array<string>;
   smallImg?: string;
   bigImg?: string;
-  banner?: banner;
+  banner?: Banner;
 }
 
-interface likes extends banner {
+interface Likes extends Banner {
   name?: string;
   price?: number;
 }
 
-interface searchOption {
+interface SearchOption {
   category1Id?: string;
   category2Id?: string;
   category3Id?: string;
@@ -43,7 +43,7 @@ interface searchOption {
   pageSize: number;
 }
 
-interface resOfSearch {
+interface ResOfSearch {
   attrsList?: Array<object>;
   goodsList?: Array<object>;
   pageNo?: number;
@@ -53,22 +53,22 @@ interface resOfSearch {
   trademarkList?: Array<object>;
 }
 
-interface searchData {
+interface SearchData {
   sortOrder: string;
   isShow: boolean;
-  res: resOfSearch;
-  option: searchOption;
+  res: ResOfSearch;
+  option: SearchOption;
 }
 
-interface detailRes {
-  categoryView?: categoryView;
+interface DetailRes {
+  categoryView?: CategoryView;
   price?: number;
-  skuInfo?: skuInfo;
-  spuSaleAttrList?: Array<spuSaleAttrList>;
+  skuInfo?: SkuInfo;
+  spuSaleAttrList?: Array<SpuSaleAttrList>;
   skuAttrValueList?: string;
 }
 
-interface categoryView {
+interface CategoryView {
   category1Id: number;
   category1Name: string;
   category2Id: number;
@@ -78,16 +78,16 @@ interface categoryView {
   id: number;
 }
 
-interface skuInfo {
+interface SkuInfo {
   category3Id: number;
   createTime: string;
   id: number;
   isSale: number;
   price: number;
-  skuAttrValueList: Array<skuAttrValueList>;
+  skuAttrValueList: Array<SkuAttrValueList>;
   skuDefaultImg: string;
   skuDesc: string;
-  skuImageList: Array<skuImageList>;
+  skuImageList: Array<SkuImageList>;
   skuName: string;
   skuSaleAttrValueList: null;
   spuId: number;
@@ -95,7 +95,7 @@ interface skuInfo {
   weight: string;
 }
 
-interface skuAttrValueList {
+interface SkuAttrValueList {
   attrId: number;
   attrName: string;
   id: number;
@@ -104,7 +104,7 @@ interface skuAttrValueList {
   valueName: string;
 }
 
-interface skuImageList {
+interface SkuImageList {
   id: number;
   imgName: string;
   imgUrl: string;
@@ -113,15 +113,15 @@ interface skuImageList {
   spuImgId: number;
 }
 
-interface spuSaleAttrList {
+interface SpuSaleAttrList {
   baseSaleAttrId: number;
   id: number;
   saleAttrName: string;
   spuId: number;
-  spuSaleAttrValueList: Array<puSaleAttrValueList>;
+  spuSaleAttrValueList: Array<PuSaleAttrValueList>;
 }
 
-interface puSaleAttrValueList {
+interface PuSaleAttrValueList {
   baseSaleAttrId: number;
   id: number;
   isChecked: string;
@@ -130,21 +130,74 @@ interface puSaleAttrValueList {
   spuId: number;
 }
 
-interface detailData {
-  res: detailRes;
+interface DetailData {
+  res: DetailRes;
   zoomImg: string;
+  num: number;
+}
+
+interface ResAddToCart {
+  code: number;
+  message: string;
+  data: null;
+  ok: boolean;
+}
+
+interface ShopCart {
+  activityRuleList?: any;
+  cartInfoList?: Array<CartInfo>;
+  createTime?: any;
+}
+
+interface CartInfo {
+  cartPrice: number;
+  couponInfoList: any;
+  createTime: string;
+  id: number;
+  imgUrl: string;
+  isChecked: number;
+  isOrdered: number;
+  operateTime: string;
+  orderTime: string;
+  skuId: number;
+  skuName: string;
+  skuNum: number;
+  skuPrice: number;
+  sourceId: number;
+  sourceType: string;
+  userId: string;
+}
+
+interface Cartdata {
+  cart: Array<CartInfo>;
+  totalPrice: number;
+  num: number;
+}
+
+interface RegistData {
+  phoneNumber: string;
+  verificationCode: string;
+  password: string;
+  confirmPW: string;
+  isChecked: boolean;
 }
 
 export {
-  homeData,
-  likes,
-  floor,
-  banner,
-  bcList,
-  searchData,
-  resOfSearch,
-  searchOption,
-  detailData,
-  detailRes,
-  skuImageList,
+  HomeData,
+  Likes,
+  Floor,
+  Banner,
+  BcList,
+  SearchData,
+  ResOfSearch,
+  SearchOption,
+  DetailData,
+  DetailRes,
+  SkuImageList,
+  PuSaleAttrValueList,
+  ResAddToCart,
+  ShopCart,
+  Cartdata,
+  CartInfo,
+  RegistData,
 };

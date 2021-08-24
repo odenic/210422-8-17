@@ -1,6 +1,7 @@
 import axios from "axios";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import setTemUserId from "./setTemporaryUserId";
 
 const request = axios.create({
   baseURL: "http://39.98.123.211/api",
@@ -8,6 +9,7 @@ const request = axios.create({
 
 request.interceptors.request.use((config) => {
   NProgress.start();
+  config.headers.userTempId = setTemUserId();
   return config;
 });
 

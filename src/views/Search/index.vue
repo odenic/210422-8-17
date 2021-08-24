@@ -161,11 +161,11 @@
 import { defineComponent } from "vue";
 import SearchSelector from "./SearchSelector/SearchSelector.vue";
 import { search } from "@/api/search";
-import { searchData, resOfSearch } from "@/types/index";
+import { SearchData, ResOfSearch } from "@/types/index";
 import Pagination from "@/components/Pagination/index.vue";
 export default defineComponent({
   name: "Search",
-  data(): searchData {
+  data(): SearchData {
     return {
       sortOrder: "desc",
       isShow: false,
@@ -194,7 +194,7 @@ export default defineComponent({
   methods: {
     async reqSearch(): Promise<void> {
       try {
-        const res = (await search(this.option)) as resOfSearch;
+        const res = (await search(this.option)) as ResOfSearch;
         this.isShow = true;
         this.res = res;
       } catch (error) {

@@ -4,6 +4,8 @@ import Login from "../views/Login/index.vue";
 import Register from "../views/Register/index.vue";
 import Search from "../views/Search/index.vue";
 import Detail from "../views/Detail/index.vue";
+import AddCartSuccess from "../views/AddCartSuccess/index.vue";
+import ShopCart from '../views/ShopCart/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -37,6 +39,17 @@ const routes: Array<RouteRecordRaw> = [
     name: "Detail",
     component: Detail,
   },
+  {
+    path: "/addcartsuccess",
+    name: "AddCartSuccess",
+    component: AddCartSuccess,
+  },
+  {
+    path: "/shopcart",
+    name: "ShopCart",
+    component: ShopCart,
+  },
+  
 ];
 
 const router = createRouter({

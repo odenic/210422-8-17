@@ -1,8 +1,8 @@
 import request from "@/utils/request";
-import { detailRes } from "@/types/index";
+import { DetailRes } from "@/types/index";
 import { AxiosPromise } from "axios";
 
-function getGoodsDetails(skuId: string): AxiosPromise<detailRes> {
+function getGoodsDetails(skuId: string): AxiosPromise<DetailRes> {
   return request({
     url: `/item/${skuId}`,
     method: "get",

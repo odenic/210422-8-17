@@ -82,22 +82,19 @@
                 <dt class="title">{{ item.saleAttrName }}</dt>
                 <dd
                   changepirce="0"
-                  :class="attr.isChecked === '1' ? 'active' : ''"
                   v-for="(attr, index) in item.spuSaleAttrValueList"
+                  :class="attr.isChecked === '1' ? 'active' : ''"
                   :key="index"
+                  @click="changeAttrValue(attr, item.spuSaleAttrValueList)"
                 >
                   {{ attr.saleAttrValueName }}
                 </dd>
               </dl>
             </div>
             <div class="cartWrap">
-              <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
-              </div>
+              <Controls :changeNum="changeNum" />
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a @click="goCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -349,24 +346,28 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { detailData, detailRes } from "@/types/index";
+import { DetailData, DetailRes, PuSaleAttrValueList } from "@/types/index";
 
 import ImageList from "./ImageList/ImageList.vue";
 import Zoom from "./Zoom/Zoom.vue";
+import Controls from "./Controls/index.vue";
 
 import { getGoodsDetails } from "@/api/detail";
+import { addToCart } from "@/api/cart";
 
 export default defineComponent({
   name: "Detail",
-  data(): detailData {
+  data(): DetailData {
     return {
       res: {},
       zoomImg: "",
+      num: 1,
     };
   },
   components: {
     ImageList,
     Zoom,
+    Controls,
   },
   mounted() {
     this.reqGoodsDetail();
@@ -376,7 +377,7 @@ export default defineComponent({
       try {
         const res = (await getGoodsDetails(
           this.$route.query.skuId as string
-        )) as detailRes;
+        )) as DetailRes;
         this.res = res;
       } catch (error) {
         console.log(error);
@@ -384,6 +385,32 @@ export default defineComponent({
     },
     changeZoomImg(url: string): void {
       this.zoomImg = url;
+    },
+    changeAttrValue(
+      attr: PuSaleAttrValueList,
+      AttrValueList: Array<PuSaleAttrValueList>
+    ): void {
+      if (attr.isChecked === "1") return;
+      AttrValueList.forEach((item) => (item.isChecked = "0"));
+      attr.isChecked = "1";
+    },
+    changeNum(num: number): void {
+      this.num = num;
+    },
+    async goCart() {
+      await addToCart(this.res.skuInfo?.id + "", this.num + "");
+      sessionStorage.setItem(
+        "goods",
+        JSON.stringify({
+          price: this.res.skuInfo?.price,
+          name: this.res.skuInfo?.skuName,
+          imgUrl: this.res.skuInfo?.skuDefaultImg,
+          num: this.num,
+        })
+      );
+      this.$router.push({
+        name: "AddCartSuccess",
+      });
     },
   },
   computed: {
@@ -563,46 +590,6 @@ export default defineComponent({
           }
 
           .cartWrap {
-            .controls {
-              width: 48px;
-              position: relative;
-              float: left;
-              margin-right: 15px;
-
-              .itxt {
-                width: 38px;
-                height: 37px;
-                border: 1px solid #ddd;
-                color: #555;
-                float: left;
-                border-right: 0;
-                text-align: center;
-              }
-
-              .plus,
-              .mins {
-                width: 15px;
-                text-align: center;
-                height: 17px;
-                line-height: 17px;
-                background: #f1f1f1;
-                color: #666;
-                position: absolute;
-                right: -8px;
-                border: 1px solid #ccc;
-              }
-
-              .mins {
-                right: -8px;
-                top: 19px;
-                border-top: 0;
-              }
-
-              .plus {
-                right: -8px;
-              }
-            }
-
             .add {
               float: left;
 

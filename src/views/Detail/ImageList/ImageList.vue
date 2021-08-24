@@ -12,10 +12,18 @@
           pauseOnMouseEnter: true,
         }"
         :loop="true"
-        :slidesPerView="imgUrl.length<5?imgUrl.length:5"
+        :slidesPerView="imgUrl.length < 5 ? imgUrl.length : 5"
+        @slideChange="onSlideChange"
       >
-        <SwiperSlide v-for="item in imgUrl" :key="item.id" class="swiper-slide">
-          <img :src="item.imgUrl" @click="changeZoomImg(item.imgUrl)" />
+        <SwiperSlide v-for="(item, index) in imgUrl" :key="item.id">
+          <img
+            :src="item.imgUrl"
+            @click="changeZoomImg(item.imgUrl)"
+            :class="[
+              this.swiperIndex === index + 5 ? 'active' : '',
+              this.swiperIndex === index + 5 + imgUrl.length ? 'active' : '',
+            ]"
+          />
         </SwiperSlide>
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
@@ -26,13 +34,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { skuImageList } from "@/types/index";
+import { SkuImageList } from "@/types/index";
 import SwiperCore, {
   Navigation,
   Pagination,
   Scrollbar,
   A11y,
   Autoplay,
+  Swiper as SwiperClass,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/swiper-bundle.css";
@@ -41,21 +50,27 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 export default defineComponent({
   name: "ImageList",
+  data() {
+    return {
+      swiperIndex: NaN,
+    };
+  },
   components: {
     Swiper,
     SwiperSlide,
   },
   props: {
     imgUrl: {
-      type: Array as PropType<Array<skuImageList>>,
+      type: Array as PropType<Array<SkuImageList>>,
     },
     changeZoomImg: Function,
   },
-  // computed:{
-  //   changeWidth(){
 
-  //   }
-  // }
+  methods: {
+    onSlideChange(swiper: SwiperClass) {
+      this.swiperIndex = swiper.activeIndex;
+    },
+  },
 });
 </script>
 
