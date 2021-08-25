@@ -7,9 +7,15 @@ const request = axios.create({
   baseURL: "http://39.98.123.211/api",
 });
 
+const token = localStorage.getItem("token");
+
 request.interceptors.request.use((config) => {
   NProgress.start();
-  config.headers.userTempId = setTemUserId();
+  if (token) {
+    config.headers.token = token;
+  } else {
+    config.headers.userTempId = setTemUserId();
+  }
   return config;
 });
 

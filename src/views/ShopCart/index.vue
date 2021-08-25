@@ -68,7 +68,12 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" @click="changeAll($event)" :checked="num===cart.length" />
+        <input
+          class="chooseAll"
+          type="checkbox"
+          @click="changeAll($event)"
+          :checked="num === cart.length"
+        />
         <span>全选</span>
       </div>
       <div class="option">
@@ -98,13 +103,13 @@ import { defineComponent } from "vue";
 
 import { getCartList, changeIsChecked, delGoods } from "@/api/cart";
 
-import { Cartdata, CartInfo } from "@/types/index";
+import { Cartdata, CartInfo, ShopCart } from "@/types/index";
 
 export default defineComponent({
   name: "ShopCart",
   async mounted() {
-    const cart = await getCartList();
-    this.cart = cart[0].cartInfoList;
+    const cart = ((await getCartList()) as unknown) as Array<ShopCart>;
+    this.cart = cart[0].cartInfoList as Array<CartInfo>;
   },
   data(): Cartdata {
     return {

@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="right-gocart">
-          <a class="sui-btn btn-xlarge">查看商品详情</a>
+          <a class="sui-btn btn-xlarge" @click="goodsDetails">查看商品详情</a>
           <router-link to="/shopcart">去购物车结算 > </router-link>
         </div>
       </div>
@@ -39,6 +39,11 @@ export default defineComponent({
   name: "AddCartSuccess",
   mounted() {
     this.goods = JSON.parse(sessionStorage.getItem("goods") as string);
+  },
+  methods: {
+    goodsDetails() {
+      this.$router.back();
+    },
   },
 });
 </script>

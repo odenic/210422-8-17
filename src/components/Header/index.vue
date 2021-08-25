@@ -6,10 +6,14 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <p v-show="!userName">
             <span>请</span>
             <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
+          </p>
+          <p v-show="userName">
+            <a>{{ userName }}</a>
+            <a class="register" @click="userLogout">登出</a>
           </p>
         </div>
         <div class="typeList">
@@ -54,6 +58,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { logout } from "@/api/user";
 
 export default defineComponent({
   name: "Header",
@@ -70,12 +75,29 @@ export default defineComponent({
       this.$router.push(data);
       this.keywords = "";
     },
+    userLogout(): void {
+      logout();
+      localStorage.removeItem("userName");
+      localStorage.removeItem("token");
+      this.$router.push({
+        name: "Login",
+      });
+    },
   },
   data() {
     return {
       keywords: "",
+      userName: "",
     };
   },
+  watch: {
+    $route: {
+      handler: function(): void {
+        this.userName = localStorage.getItem("userName") as string;
+      },
+    },
+  },
+
   // setup() {
 
   // },

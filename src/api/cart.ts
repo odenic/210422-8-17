@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-import { ResAddToCart } from "@/types/index";
+import { ResAddToCart,ShopCart } from "@/types/index";
 import { AxiosPromise } from "axios";
 
 function addToCart(skuId: string, skuNum: string): AxiosPromise<ResAddToCart> {
@@ -9,7 +9,7 @@ function addToCart(skuId: string, skuNum: string): AxiosPromise<ResAddToCart> {
   });
 }
 
-function getCartList(): any {
+function getCartList(): AxiosPromise<Array<ShopCart>> {
   return request({
     url: `/cart/cartList`,
     method: "get",

@@ -139,7 +139,7 @@ interface DetailData {
 interface ResAddToCart {
   code: number;
   message: string;
-  data: null;
+  data: any;
   ok: boolean;
 }
 
@@ -180,6 +180,19 @@ interface RegistData {
   password: string;
   confirmPW: string;
   isChecked: boolean;
+  isSend: boolean;
+  rescode: string | null;
+  time: number;
+  timer: number | undefined;
+  codeError: boolean;
+  phoneError:boolean
+}
+
+interface UserData {
+  name: string;
+  nickName: string;
+  token: string;
+  userId: number;
 }
 
 export {
@@ -200,4 +213,5 @@ export {
   Cartdata,
   CartInfo,
   RegistData,
+  UserData
 };
