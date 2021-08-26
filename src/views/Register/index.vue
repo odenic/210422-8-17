@@ -117,7 +117,6 @@ export default defineComponent({
     confirm(): boolean {
       return this.password === this.confirmPW;
     },
-    
   },
   methods: {
     async regist(): Promise<void> {
@@ -146,7 +145,7 @@ export default defineComponent({
           this.isSend = true;
           const res = ((await sendCode(this.phoneNumber)) as unknown) as string;
           this.rescode = res;
-          const timer = setInterval(() => {
+          const timer = window.setInterval(() => {
             this.time--;
             if (this.time < 0) {
               this.time = 60;

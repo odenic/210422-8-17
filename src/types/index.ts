@@ -171,7 +171,7 @@ interface CartInfo {
 interface Cartdata {
   cart: Array<CartInfo>;
   totalPrice: number;
-  num: number;
+  num?: number;
 }
 
 interface RegistData {
@@ -185,7 +185,7 @@ interface RegistData {
   time: number;
   timer: number | undefined;
   codeError: boolean;
-  phoneError:boolean
+  phoneError: boolean;
 }
 
 interface UserData {
@@ -193,6 +193,54 @@ interface UserData {
   nickName: string;
   token: string;
   userId: number;
+}
+
+interface TradeData {
+  orderArrayList: Array<TradeDetailList> | [];
+  tradeNo: string;
+  adress: Array<TradeAdress>;
+  orderComment: string;
+}
+
+interface TradeDetailList {
+  id: null;
+  imgUrl: string;
+  orderId: null;
+  orderPrice: number;
+  skuId: number;
+  skuName: string;
+  skuNum: number;
+}
+
+interface TradeAdress {
+  /** 收件人姓名 */
+  consignee: string;
+  /** 收件人电话 */
+  consigneeTel: string;
+  /** 收件人地址 */
+  deliveryAddress: string;
+  isChecked: boolean;
+}
+
+interface ResTrade {
+  detailArrayList: Array<TradeDetailList>;
+  tradeNo: string;
+}
+
+interface ResQRCode {
+  codeUrl: string;
+  orderId: number;
+  resultCode: string;
+  totalFee: number;
+}
+
+interface OrderList {
+  current: number;
+  pages: number;
+  records: Array<object>;
+  searchCount: boolean;
+  size: number;
+  total: number;
 }
 
 export {
@@ -213,5 +261,11 @@ export {
   Cartdata,
   CartInfo,
   RegistData,
-  UserData
+  UserData,
+  TradeData,
+  ResTrade,
+  TradeDetailList,
+  TradeAdress,
+  ResQRCode,
+  OrderList
 };

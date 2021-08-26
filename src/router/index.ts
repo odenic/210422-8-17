@@ -5,7 +5,11 @@ import Register from "../views/Register/index.vue";
 import Search from "../views/Search/index.vue";
 import Detail from "../views/Detail/index.vue";
 import AddCartSuccess from "../views/AddCartSuccess/index.vue";
-import ShopCart from '../views/ShopCart/index.vue'
+import ShopCart from "../views/ShopCart/index.vue";
+import Center from "../views/Center/index.vue";
+import Pay from "../views/Pay/index.vue";
+import PaySuccess from "../views/PaySuccess/index.vue";
+import Trade from "../views/Trade/index.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -49,7 +53,26 @@ const routes: Array<RouteRecordRaw> = [
     name: "ShopCart",
     component: ShopCart,
   },
-  
+  {
+    path: "/trade",
+    name: "Trade",
+    component: Trade,
+  },
+  {
+    path: "/paySuccess",
+    name: "PaySuccess",
+    component: PaySuccess,
+  },
+  {
+    path: "/pay",
+    name: "Pay",
+    component: Pay,
+  },
+  {
+    path: "/center",
+    name: "Center",
+    component: Center,
+  },
 ];
 
 const router = createRouter({

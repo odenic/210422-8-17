@@ -91,7 +91,11 @@
           <i class="summoney">{{ totalPrice }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <router-link
+            :to="num ? '/trade' : ''"
+            :class="num ? 'sum-btn' : 'disable'"
+            >结算</router-link
+          >
         </div>
       </div>
     </div>
@@ -109,7 +113,7 @@ export default defineComponent({
   name: "ShopCart",
   async mounted() {
     const cart = ((await getCartList()) as unknown) as Array<ShopCart>;
-    this.cart = cart[0].cartInfoList as Array<CartInfo>;
+    this.cart = cart.length ? (cart[0].cartInfoList as Array<CartInfo>) : [];
   },
   data(): Cartdata {
     return {
@@ -359,6 +363,10 @@ export default defineComponent({
           font-family: "Microsoft YaHei";
           background: #e1251b;
           overflow: hidden;
+        }
+        .disable {
+          cursor: not-allowed;
+          background: #807c7c;
         }
       }
     }
