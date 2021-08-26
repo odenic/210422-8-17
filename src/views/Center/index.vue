@@ -111,7 +111,7 @@
                     </td>
                     <td :rowspan="item.orderDetailList.length" width="13%" class="center">
                       <ul class="unstyled">
-                        <li>总金额¥138.00</li>
+                        <li>总金额¥{{ item.orderDetailList[0].splitTotalAmount }}</li>
                         <li>在线支付</li>
                       </ul>
                     </td>
